@@ -80,7 +80,7 @@ function Login() {
           }
         }
         if (detections.length === 0) {
-          setInstructions("Kindly come in the frame");
+          setInstructions("Kindly show your face");
         }
 
         // const canvas = canvasRef.current;
