@@ -94,7 +94,7 @@ function Login() {
         <div className="hero-overlay bg-opacity-80"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Hello there</h1>
+            <h1 className="text-5xl font-bold">Welcome to FaceDetect Login</h1>
             <p className="py-6">
               <Webcam
                 className="rounded-l  shadow-xl"
