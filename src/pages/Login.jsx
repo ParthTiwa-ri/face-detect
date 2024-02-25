@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const webcamRef = useRef(null); // Ref for the webcam component
-
+  // const canvasRef = useRef();
   const intervalRef = useRef();
   const navigate = useNavigate();
   const [instructions, setInstructions] = useState("Detecting face"); // State for instructions
@@ -79,6 +79,22 @@ function Login() {
             setInstructions(newInstructions); // Update instructions state
           }
         }
+
+        // const canvas = canvasRef.current;
+        // canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+        // faceapi.matchDimensions(canvas, {
+        //   width: video.videoWidth,
+        //   height: video.videoHeight,
+        // });
+
+        // const resizedDetections = faceapi.resizeResults(detections, {
+        //   width: video.videoWidth,
+        //   height: video.videoHeight,
+        // });
+
+        // faceapi.draw.drawDetections(canvas, resizedDetections);
+        // faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+        // faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
       }
     }, 1000);
   };
@@ -86,7 +102,7 @@ function Login() {
   return (
     <>
       <div
-        className="hero min-h-screen"
+        className="hero min-h-screen relative "
         style={{
           backgroundImage: "url(/bck.jpg)",
         }}
@@ -94,12 +110,12 @@ function Login() {
         <div className="hero-overlay bg-opacity-80"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
-            <h1 className="sm:text-5xl text-3xl font-bold">
+            <h1 className="sm:text-5xl text-2xl font-bold mb-2">
               Welcome to FaceDetect Login
             </h1>
             <p className="py-6 flex justify-center">
               <Webcam
-                className=" rounded-l w-64 sm:w-auto shadow-xl"
+                className=" rounded-l w-64 sm:w-auto shadow-xl "
                 videoConstraints={{ facingMode: "user" }}
                 ref={webcamRef}
               />
@@ -107,7 +123,12 @@ function Login() {
             <p className="sm:text-xl text-lg font-bold text-primary-800">
               {instructions}
             </p>
-            {/* Display instructions */}
+            {/* <canvas
+              ref={canvasRef}
+              width="940"
+              height="650"
+              className="absolute z-10 top-0 left-0"
+            /> */}
           </div>
         </div>
       </div>
