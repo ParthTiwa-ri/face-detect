@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setAuthenticated] = useState(initial);
 
   const handleSetAuthenticated = (newValue) => {
+    // Ensure newValue is a boolean
     if (typeof newValue === "boolean") {
       setAuthenticated(newValue);
     } else {

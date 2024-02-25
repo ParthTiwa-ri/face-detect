@@ -28,6 +28,7 @@ export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
         .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withFaceExpressions();
+      // console.log(detections);
 
       if (detections && detections.length > 0) {
         const face = detections[0];
@@ -35,11 +36,15 @@ export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
         const centerX = (box._x + box._width / 2) / video.videoWidth;
         const centerY = (box._y + box._height / 2) / video.videoHeight;
 
+        // Get landmarks for the detected face
         const landmarks = face.landmarks;
+
+        // Check if the face is turned sideways based on the position of landmarks
         const nose = landmarks.getNose();
         const leftEye = landmarks.getLeftEye();
         const rightEye = landmarks.getRightEye();
 
+        // Calculate the angles between the nose and the eyes
         const angleLeft = calculateAngle(
           nose[0],
           leftEye[0],
@@ -51,21 +56,17 @@ export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
           leftEye[0]
         );
 
-        const sidewaysThreshold = 9; // in degrees
+        // Threshold for sideways detection (adjust as needed)
+        const sidewaysThreshold = 5; // in degrees
 
-        if (
-          Math.abs(angleLeft) > sidewaysThreshold ||
-          Math.abs(angleRight) > sidewaysThreshold
-        ) {
-          centerCount = 0;
-          countdown = 3;
-          setInstructions("Please face the camera directly");
-        } else if (
-          centerX > 0.4 &&
-          centerX < 0.6 &&
-          centerY > 0.4 &&
-          centerY < 0.6
-        ) {
+        // If the face is turned sideways beyond the threshold to the left or right
+        if (Math.abs(angleLeft) > sidewaysThreshold) {
+          console.log("Person turned their head to the left side!");
+        } else if (Math.abs(angleRight) > sidewaysThreshold) {
+          console.log("Person turned their head to the right side!");
+        }
+
+        if (centerX > 0.4 && centerX < 0.6 && centerY > 0.4 && centerY < 0.6) {
           centerCount++;
           setInstructions(`Remain in center`);
           if (centerCount >= 3) {
@@ -73,7 +74,7 @@ export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
             setInstructions(`Redirecting to homepage in ${countdown} seconds`);
             if (countdown === 0) {
               clearInterval(intervalRef.current);
-              navigate("/homepage");
+              // navigate("/homepage");
               setAuthenticated(true);
             }
           }
@@ -93,7 +94,13 @@ export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
       }
     }, 1000);
   };
-
+  // function calculateAngle(pointA, pointB, pointC) {
+  //   const radians =
+  //     Math.atan2(pointC.y - pointB.y, pointC.x - pointB.x) -
+  //     Math.atan2(pointA.y - pointB.y, pointA.x - pointB.x);
+  //   const degrees = radians * (180 / Math.PI);
+  //   return degrees;
+  // }
   function calculateAngle(pointA, pointB, pointC) {
     const vectorAB = { x: pointB.x - pointA.x, y: pointB.y - pointA.y };
     const vectorCB = { x: pointB.x - pointC.x, y: pointB.y - pointC.y };
