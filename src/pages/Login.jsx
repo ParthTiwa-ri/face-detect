@@ -104,7 +104,9 @@ function Login() {
                 ref={webcamRef}
               />
             </p>
-            <p className="text-xl font-bold text-primary-800">{instructions}</p>
+            <p className="sm:text-xl text-lg font-bold text-primary-800">
+              {instructions}
+            </p>
             {/* Display instructions */}
           </div>
         </div>
