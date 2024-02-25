@@ -1,16 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import { useNavigate } from "react-router-dom";
 import { useFaceDetection } from "../services/faceDetection";
+import { useAuth } from "../Context/AuthContext";
 
 function Login() {
   const webcamRef = useRef(null);
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [instructions, setInstructions] = useState("Detecting face");
   const { loadModels } = useFaceDetection(webcamRef, navigate, setInstructions);
 
   useEffect(() => {
     loadModels();
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/homepage");
+    }
   }, []);
 
   return (

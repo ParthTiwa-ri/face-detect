@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 function Navbar() {
+  const { setAuthenticated } = useAuth();
+  function handleLogout() {
+    setAuthenticated(false);
+  }
+
   const toggleTheme = () => {
     const theme = document.documentElement.getAttribute("data-theme");
     document.documentElement.setAttribute(
@@ -79,7 +85,9 @@ function Navbar() {
                 <a>Settings</a>
               </li>
               <li>
-                <Link to="/">Logout</Link>
+                <Link onClick={handleLogout} to="/">
+                  Logout
+                </Link>
               </li>
             </ul>
           </div>

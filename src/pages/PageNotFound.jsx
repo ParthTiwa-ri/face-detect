@@ -7,7 +7,7 @@ function PageNotFound() {
     <div style={styles.container}>
       <img src={imageNotFound} alt="404 Page Not Found" style={styles.image} />
       <Link to="/">
-        <button className="btn btn-primary">Back to Home</button>
+        <button className="btn btn-primary">Back to Login</button>
       </Link>
     </div>
   );

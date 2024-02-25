@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import * as faceapi from "face-api.js";
+import { useAuth } from "../Context/AuthContext";
 
 export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
   const intervalRef = useRef();
+  const { setAuthenticated } = useAuth();
 
   const loadModels = async () => {
     await Promise.all([
@@ -42,6 +44,7 @@ export const useFaceDetection = (webcamRef, navigate, setInstructions) => {
             if (countdown === 0) {
               clearInterval(intervalRef.current);
               navigate("/homepage");
+              setAuthenticated(true);
             }
           }
         } else {

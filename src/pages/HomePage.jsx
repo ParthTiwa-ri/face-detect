@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useAuth } from "../Context/AuthContext";
 
 function HomePage() {
+  const { setAuthenticated } = useAuth();
+  function handleLogout() {
+    setAuthenticated(false);
+  }
+
   return (
     <>
       <div>
@@ -21,7 +27,7 @@ function HomePage() {
                 experience we have crafted for you.
               </p>
 
-              <Link to="/" className="btn btn-primary">
+              <Link onClick={handleLogout} to="/" className="btn btn-primary">
                 Sign Out
               </Link>
             </div>
