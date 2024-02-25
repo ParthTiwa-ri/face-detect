@@ -38,7 +38,7 @@ function Login() {
           .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
           .withFaceLandmarks()
           .withFaceExpressions();
-
+        console.log(detections);
         if (detections && detections.length > 0) {
           const face = detections[0];
           const centerX =
@@ -78,6 +78,9 @@ function Login() {
 
             setInstructions(newInstructions); // Update instructions state
           }
+        }
+        if (detections.length === 0) {
+          setInstructions("Kindly come in the frame");
         }
 
         // const canvas = canvasRef.current;
