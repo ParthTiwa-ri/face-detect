@@ -95,9 +95,9 @@ function Login() {
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Welcome to FaceDetect Login</h1>
-            <p className="py-6">
+            <p className="py-6 flex justify-center">
               <Webcam
-                className="rounded-l  shadow-xl"
+                className=" rounded-l w-72 sm:w-auto shadow-xl"
                 videoConstraints={{ facingMode: "user" }}
                 ref={webcamRef}
               />
